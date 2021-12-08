@@ -3,11 +3,11 @@ require 'secret_diary'
 describe SecretDiary do
   let(:secretdiary) { SecretDiary.new }
   before do
-    secretdiary.lock = true
+    secretdiary.locked = true
   end
   context 'is locked' do
     it 'should return true' do
-      expect(secretdiary.lock).to eq(true)
+      expect(secretdiary.locked).to eq(true)
     end
     it 'should throw an error at #add_entry' do
       expect(secretdiary.add_entry("hello")).to eq("This diary is locked. Keep out!")  
@@ -21,10 +21,20 @@ describe SecretDiary do
       secretdiary.unlock
     end
     it 'unlocks' do
-      expect(secretdiary.lock).to eq(false)
+      expect(secretdiary.locked).to eq(false)
     end
     it 'should add an entry' do
-      expect(secretdiary.add_entry("nice note")).to eq("nice note")
+      secretdiary.add_entry("nice note")
+      expect(secretdiary.entries).to eq(["nice note"])
+    end
+    it 'should get the entries' do
+      secretdiary.add_entry("nice note")
+      secretdiary.add_entry("another note")
+      expect(secretdiary.get_entries).to eq(["nice note", "another note"])
+    end
+    it 'locks the diary' do
+      secretdiary.lock
+      expect(secretdiary.locked).to eq(true)
     end
   end
 end

@@ -1,20 +1,26 @@
 class SecretDiary
-  attr_accessor :lock
+  attr_accessor :locked
+  attr_accessor :entries
 
   def initialize
-    @lock = true
+    @locked = true
+    @entries = []
   end
 
   def add_entry(string)
-    @lock == false ? string: "This diary is locked. Keep out!"
+    @locked == false ? @entries << string : "This diary is locked. Keep out!"
   end
 
   def get_entries
-    "This diary is locked. Keep out!"
+    @locked == false ? @entries : "This diary is locked. Keep out!"  
   end
 
   def unlock
-    @lock = false
+    @locked = false
+  end
+
+  def lock
+    @locked = true
   end
 
 end
