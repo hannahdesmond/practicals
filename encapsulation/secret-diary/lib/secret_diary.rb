@@ -22,13 +22,8 @@ class NewEntry
   end
 end
 
-
-=begin
-  def add_entry(string)
-    @locked == false ? @entries << string : "This diary is locked. Keep out!"
+class GetEntries
+  def get_entries(diary)
+    diary.locked == false ? diary.entries : "This diary is locked. Keep out!"
   end
-
-  def get_entries
-    @locked == false ? @entries : "This diary is locked. Keep out!"  
-  end
-=end
+end
