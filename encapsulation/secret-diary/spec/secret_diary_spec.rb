@@ -3,13 +3,18 @@ require 'secret_diary'
 describe SecretDiary do
   let(:secretdiary) { SecretDiary.new }
     it 'unlocks' do
-      secretdiary.locked = true
       secretdiary.unlock
       expect(secretdiary.locked).to eq(false)
     end
     it 'locks the diary' do
       secretdiary.lock
       expect(secretdiary.locked).to eq(true)
+    end
+    it 'unlocks and locks the diary several times' do
+      secretdiary.unlock
+      secretdiary.lock
+      secretdiary.unlock
+      expect(secretdiary.locked).to eq(false)
     end
   end
 
@@ -25,7 +30,7 @@ describe NewEntry do
   context 'diary is locked' do
     it 'throws an error' do 
       secretdiary.lock
-      expect(subject.add_entry(secretdiary, "nice note")).to eq("This diary is locked. Keep out!")
+      expect { subject.add_entry(secretdiary, "nice note") }.to raise_error("This diary is locked. Keep out!")
     end
   end
 end
@@ -46,9 +51,10 @@ describe GetEntries do
     end
     context 'diary is locked' do
       it 'throws an error' do 
-        secretdiary.lock
+        secretdiary.unlock
         add_notes
-        expect(subject.get_entries(secretdiary)).to eq("This diary is locked. Keep out!")
+        secretdiary.lock
+        expect { subject.get_entries(secretdiary) }.to raise_error("This diary is locked. Keep out!")
       end
     end
 end

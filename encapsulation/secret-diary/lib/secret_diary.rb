@@ -18,12 +18,12 @@ end
 
 class NewEntry
   def add_entry(diary, string)
-    diary.locked == false ? diary.entries << string : "This diary is locked. Keep out!"
+    diary.locked == false ? diary.entries << string : raise("This diary is locked. Keep out!")
   end
 end
 
 class GetEntries
   def get_entries(diary)
-    diary.locked == false ? diary.entries : "This diary is locked. Keep out!"
+    diary.locked == false ? diary.entries : raise("This diary is locked. Keep out!")
   end
 end
