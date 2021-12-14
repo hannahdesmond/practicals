@@ -1,4 +1,4 @@
-class Calculate
+class Calculator
   def add(number_1, number_2)
     number_1 + number_2
   end
@@ -8,7 +8,7 @@ class Calculate
   end
 end
 
-class PrintCalculation
+class Printer
   def print_answer(answer)
     "The Answer is: #{ answer }"
   end
