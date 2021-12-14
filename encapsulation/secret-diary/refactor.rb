@@ -1,4 +1,6 @@
 
+
+
 class SecretDiary 
   def initialize
     @entries = []
